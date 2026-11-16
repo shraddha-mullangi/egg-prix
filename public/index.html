@@ -1,0 +1,96 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Egg Prix 🐔</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#152b30;color:#fff;font-family:system-ui,Arial;text-align:center}
+header{padding:18px;background:#213f42}
+h1{margin:0;color:#ffe184;font-size:2.4rem}
+p{color:#d1e4dc}
+main{max-width:1050px;margin:auto;padding:18px}
+.panel{background:#24474b;border-radius:18px;padding:20px;margin:14px 0}
+button,input,select{font:inherit;border:0;border-radius:10px;padding:12px;margin:5px}
+button{background:#ffcf55;color:#27302d;font-weight:800;cursor:pointer}
+button:disabled{opacity:.4}
+input,select{max-width:95%;background:#fff;color:#222}
+canvas{width:100%;background:#72b86b;border-radius:16px;display:block}
+.hidden{display:none!important}
+#players{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.player{background:#345d60;border-radius:10px;padding:10px}
+#controls{display:flex;justify-content:center;flex-wrap:wrap;gap:8px;touch-action:none}
+#controls button{min-width:64px;min-height:65px;font-size:21px;user-select:none;touch-action:none}
+#message{color:#ffe184;min-height:26px}
+#hud{font-size:1.2rem;font-weight:bold;margin:10px}
+small{display:block;color:#c4d8d0;margin:8px}
+</style>
+</head>
+<body>
+<header>
+<h1>🐔 EGG PRIX 🥚</h1>
+<p>Pick your chicken. Ride your egg. Race your friends!</p>
+</header>
+<main>
+<section id="home" class="panel">
+<h2>Join the flock!</h2>
+<input id="name" maxlength="20" placeholder="Your nickname">
+<div><button id="create">Create Room</button></div>
+<input id="code" maxlength="6" placeholder="Room code">
+<button id="join">Join Room</button>
+<p>No login. No download. Just racing.</p>
+</section>
+
+<section id="lobby" class="panel hidden">
+<h2>Room: <span id="roomCode"></span></h2>
+<button id="invite">Copy Invite Link</button>
+<h3>Choose your chicken</h3>
+<select id="chicken">
+<option value="clucky">🐔 Clucky — Feather Dash</option>
+<option value="buffalo">💪 Buffalo Wing — Shield</option>
+<option value="peep">🐤 Peep — Turbo Chirp</option>
+<option value="shadow">🖤 Shadow Hen — Feather Trap</option>
+</select>
+<h3>Choose your egg kart</h3>
+<select id="egg">
+<option value="classic">🥚 Classic — Balanced</option>
+<option value="scrambled">🍳 Scrambled — Quick acceleration</option>
+<option value="golden">🌟 Golden — Fast top speed</option>
+<option value="boiled">🛡️ Hard-Boiled — Steady ride</option>
+<option value="rotten">🟢 Rotten — Sharp turning</option>
+</select>
+<h3>Players</h3>
+<div id="players"></div>
+<button id="ready">I'm Ready!</button>
+<button id="start">Start Race</button>
+<small>Everyone must be ready before the host can start.</small>
+</section>
+
+<section id="race" class="panel hidden">
+<h2 id="status">Get ready!</h2>
+<div id="hud">Lap 1/3</div>
+<canvas id="track" width="1000" height="700"></canvas>
+<div id="controls">
+<button data-key="left">⬅️</button>
+<button data-key="gas">⬆️ GAS</button>
+<button data-key="brake">⬇️ BRAKE</button>
+<button data-key="right">➡️</button>
+<button data-key="ability">⚡ SPECIAL</button>
+</div>
+<small>Keyboard: WASD or arrow keys to drive. Space = special.</small>
+<small>Race around the oval for three laps. Stay on the track for speed!</small>
+</section>
+
+<section id="results" class="panel hidden">
+<h2>🏆 Race Results</h2>
+<div id="standings"></div>
+<button id="rematch">Race Again</button>
+</section>
+<p id="message"></p>
+</main>
+<script src="/socket.io/socket.io.js"></script>
+<script src="/game.js"></script>
+</body>
+</html>
